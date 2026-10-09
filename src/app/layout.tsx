@@ -1,6 +1,10 @@
 import type { Metadata } from "next";
 import { Noto_Serif_Bengali } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
+import Navbar from "@/components/Navbar";
+import Marquee from "@/components/Marquee";
+import Footer from "@/components/Footer";
 
 const notoSerifBengali = Noto_Serif_Bengali({
   variable: "--font-noto-serif-bengali",
@@ -9,18 +13,28 @@ const notoSerifBengali = Noto_Serif_Bengali({
 });
 
 export const metadata: Metadata = {
-  title: "বাজার দর | BazarDor",
-  description: "প্রয়োজনীয় পণ্যের দাম এক নজরে।",
+  title: "bazar dor | BazarDor",
+  description: "proyojonio ponnyer dam ek nojore.",
 };
 
 export default function RootLayout({
   children,
-}: LayoutProps<"/">) {
+}: {
+  children: React.ReactNode;
+}) {
   return (
-    <html lang="bn"  data-theme="light">
-      
+    <html lang="bn" data-theme="light">
       <body className={notoSerifBengali.className}>
-        {children}
+        <Suspense fallback={null}>
+          <Navbar />
+        </Suspense>
+        <Marquee />
+        
+        <main className="min-h-screen">
+          {children}
+        </main>
+
+        <Footer />
       </body>
     </html>
   );

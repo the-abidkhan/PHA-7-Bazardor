@@ -37,7 +37,7 @@ export default function ProductsCard() {
 
     const fallers = products
         .filter((product) => product.change.dir === "down")
-        .sort((a, b) => b.change.pct - a.change.pct)
+        .sort((a, b) => Math.abs(b.change.pct) - Math.abs(a.change.pct))
         .slice(0, 6);
 
     return (
