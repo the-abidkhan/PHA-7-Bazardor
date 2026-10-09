@@ -1,7 +1,7 @@
 import Navbar from "@/components/Navbar";
 import Marquee from "@/components/Marquee";
 import BannerPage from "@/components/Banner";
-
+import ProductsCard from "@/components/ProductsCard";
 
 export default function Home() {
   return (
@@ -9,6 +9,7 @@ export default function Home() {
       <Navbar />
       <Marquee />
       <BannerPage />
+      <ProductsCard/>
     </div>
   );
 }
