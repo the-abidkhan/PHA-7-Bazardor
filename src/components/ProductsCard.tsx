@@ -41,7 +41,7 @@ export default function ProductsCard() {
         .slice(0, 6);
 
     return (
-        <section className="bg-gray-50 py-12">
+        <section className="bg-[#F1F6F1] py-12">
             <div className="mx-auto max-w-6xl px-4">
                 
                 <div className="mb-12">

@@ -6,17 +6,21 @@ import { authClient } from "@/lib/auth-client";
 import { GoTriangleDown } from "react-icons/go";
 import { FiUser } from "react-icons/fi";
 import { LuLogOut } from "react-icons/lu";
+import { toast } from "react-toastify";
 
 export default function UserInfo() {
   const { data: session } = authClient.useSession();
   const user = session?.user;
   const [isOpen, setIsOpen] = useState(false);
 
-  const handleSignOut = async () => {
+const handleSignOut = async () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          window.location.href = "/";
+          toast.success("সফলভাবে সাইন আউট হয়েছে!");
+          setTimeout(() => {
+            window.location.href = "/";
+          }, 1000);
         },
       },
     });
@@ -68,7 +72,7 @@ export default function UserInfo() {
 
           <div className="mt-2 space-y-1">
             <Link
-              href="/profile"
+              href="/update-profile"
               onClick={() => setIsOpen(false)}
               className="flex items-center gap-2 rounded-lg px-2 py-2 text-sm font-medium text-[#1D271F] hover:bg-gray-100"
             >

@@ -1,9 +1,9 @@
-
 "use client";
 
 import { useState } from "react";
 import Link from "next/link";
 import { authClient } from "@/lib/auth-client";
+import { toast } from "react-toastify";
 
 export default function SignUpPage() {
     const [name, setName] = useState("");
@@ -12,7 +12,7 @@ export default function SignUpPage() {
     const [message, setMessage] = useState("");
     const [loading, setLoading] = useState(false);
 
-async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
+    async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
         e.preventDefault();
         setMessage("");
         setLoading(true);
@@ -25,23 +25,22 @@ async function handleSignUp(e: React.FormEvent<HTMLFormElement>) {
                 callbackURL: "/",
             });
 
-            // পুরো রেসপন্সটি কনসোলে প্রিন্ট করে দেখি ঠিক কী আসছে
-            console.log("Full SignUp Response:", response);
-
             if (response.error) {
-                const err = response.error;
-                console.error("Signup error object:", err);
-
-                // Better Auth এরর মেসেজ বের করার সঠিক উপায়
-                const errorMessage = err.message || (err as any).statusText || "অ্যাকাউন্ট তৈরি করা যায়নি।";
+                const errorMessage = "এই ইমেইল দিয়ে ইতিমধ্যে অ্যাকাউন্ট রয়েছে। অন্য একটি ইমেইল ব্যবহার করো।";
                 setMessage(errorMessage);
+                toast.error(errorMessage);
                 return;
             }
 
-            window.location.href = "/";
+            toast.success("সফলভাবে অ্যাকাউন্ট তৈরি করা হয়েছে!");
+            setTimeout(() => {
+                window.location.href = "/";
+            }, 1000);
         } catch (err) {
             console.error("Catch error:", err);
-            setMessage("সমস্যা হয়েছে। আবার চেষ্টা করো।");
+            const fallbackMessage = "সমস্যা হয়েছে। আবার চেষ্টা করো।";
+            setMessage(fallbackMessage);
+            toast.error(fallbackMessage);
         } finally {
             setLoading(false);
         }
