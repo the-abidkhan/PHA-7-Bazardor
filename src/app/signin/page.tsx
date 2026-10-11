@@ -45,7 +45,10 @@ export default function SignInPage() {
     setSocialLoading(true);
 
     try {
-      window.location.href = `/api/auth/sign-in/social?provider=${provider}&callbackURL=/`;
+      await authClient.signIn.social({
+        provider,
+        callbackURL: "/",
+      });
     } catch {
       toast.error("সোশ্যাল লগইনে সমস্যা হয়েছে। আবার চেষ্টা করো।");
       setSocialLoading(false);
