@@ -22,10 +22,11 @@ export default function SignInPage() {
       const { error } = await authClient.signIn.email({
         email,
         password,
+        callbackURL: "/",
       });
 
       if (error) {
-        toast.error(error.message || "লগইন করা যায়নি। আবার চেষ্টা করো।");
+        toast.error(error.message || "ইমেইল বা পাসওয়ার্ড সঠিক নয়।");
         setLoading(false);
         return;
       }
@@ -33,9 +34,9 @@ export default function SignInPage() {
       toast.success("সফলভাবে লগইন হয়েছে!");
       setTimeout(() => {
         window.location.href = "/";
-      }, 1000);
+      }, 800);
     } catch {
-      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করো।");
+      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করো।");
       setLoading(false);
     }
   }
@@ -44,17 +45,12 @@ export default function SignInPage() {
     setSocialLoading(true);
 
     try {
-      const { error } = await authClient.signIn.social({
+      await authClient.signIn.social({
         provider,
         callbackURL: "/",
       });
-
-      if (error) {
-        toast.error(error.message || `${provider} দিয়ে লগইন করা যায়নি।`);
-      }
     } catch {
-      toast.error("সোশ্যাল লগইনে সমস্যা হয়েছে। আবার চেষ্টা করো।");
-    } finally {
+      toast.error("সোশ্যাল লগইনে সমস্যা হয়েছে। আবার চেষ্টা করো।");
       setSocialLoading(false);
     }
   }
@@ -64,7 +60,7 @@ export default function SignInPage() {
       <ToastContainer position="top-right" autoClose={3000} />
 
       <div className="w-full max-w-md rounded-2xl bg-white p-6 shadow-sm sm:p-8">
-        <div className="text-center mb-6">
+        <div className="mb-6 text-center">
           <h1 className="text-2xl font-bold text-[#1D271F]">সাইন ইন</h1>
           <p className="mt-1 text-sm text-gray-500">
             বিস্তারিত দাম, বাজার তুলনা ও প্রোফাইল দেখতে অ্যাকাউন্ট ঢুকুন।
@@ -82,9 +78,7 @@ export default function SignInPage() {
 
             <input
               id="email"
-              name="random_email_field_99"
               type="email"
-              autoComplete="new-password"
               required
               value={email}
               onChange={(e) => setEmail(e.target.value)}
@@ -98,18 +92,16 @@ export default function SignInPage() {
               htmlFor="password"
               className="mb-1 block text-sm font-medium text-gray-700"
             >
-              পাসওয়ার্ড
+              পাসওয়ার্ড
             </label>
 
             <input
               id="password"
-              name="random_password_field_99"
               type="password"
-              autoComplete="new-password"
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="কমপক্ষে ৮ অক্ষর"
+              placeholder="পাসওয়ার্ড লিখুন"
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#05893E]"
             />
           </div>
@@ -137,7 +129,7 @@ export default function SignInPage() {
             className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-2.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-60"
           >
             <FcGoogle className="text-base" />
-            <span>Google দিয়ে চালিয়ে যান</span>
+            <span>Google দিয়ে চালিয়ে যান</span>
           </button>
 
           <button
@@ -147,7 +139,7 @@ export default function SignInPage() {
             className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-2.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-60"
           >
             <FaGithub className="text-base" />
-            <span>GitHub দিয়ে চালিয়ে যান</span>
+            <span>GitHub দিয়ে চালিয়ে যান</span>
           </button>
         </div>
 
