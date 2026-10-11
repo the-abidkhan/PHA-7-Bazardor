@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useEffect, useState } from "react";
+import UserInfo from "./UserInfo";
 
 type Category = {
     slug: string;
@@ -72,25 +73,11 @@ export default function Navbar() {
                         </Link>
 
                         <p className="mt-1 text-sm text-[#1D271F]">
-                            {weekday} • {date}
+                            {weekday}, {date}
                         </p>
                     </div>
 
-                    <div className="flex items-center gap-3">
-                        <Link
-                            href="/signin"
-                            className="rounded-lg px-4 py-2 text-[#1D271F] hover:bg-gray-100"
-                        >
-                            সাইন ইন
-                        </Link>
-
-                        <Link
-                            href="/signup"
-                            className="rounded-lg bg-[#05893E] px-4 py-2 text-white hover:bg-[#047533]"
-                        >
-                            সাইন আপ
-                        </Link>
-                    </div>
+                    <UserInfo />
                 </div>
 
                 <div className="mt-4 flex items-center gap-2 overflow-x-auto border-t border-gray-100 pt-3">
