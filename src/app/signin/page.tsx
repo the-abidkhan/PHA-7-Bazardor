@@ -26,17 +26,17 @@ export default function SignInPage() {
       });
 
       if (error) {
-        toast.error(error.message || "ইমেইল বা পাসওয়ার্ড সঠিক নয়।");
+        toast.error(error.message || "ইমেইল বা পাসওয়ার্ড সঠিক নয়।");
         setLoading(false);
         return;
       }
 
-      toast.success("সফলভাবে লগইন হয়েছে!");
+      toast.success("সফলভাবে লগইন হয়েছে!");
       setTimeout(() => {
         window.location.href = "/";
       }, 800);
     } catch {
-      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করো।");
+      toast.error("সমস্যা হয়েছে। আবার চেষ্টা করো।");
       setLoading(false);
     }
   }
@@ -45,12 +45,22 @@ export default function SignInPage() {
     setSocialLoading(true);
 
     try {
-      await authClient.signIn.social({
+      const { data, error } = await authClient.signIn.social({
         provider,
         callbackURL: "/",
       });
+
+      if (error) {
+        toast.error(error.message || "সোশ্যাল লগইনে সমস্যা হয়েছে।");
+        setSocialLoading(false);
+        return;
+      }
+
+      if (data) {
+        window.location.href = "/";
+      }
     } catch {
-      toast.error("সোশ্যাল লগইনে সমস্যা হয়েছে। আবার চেষ্টা করো।");
+      toast.error("সোশ্যাল লগইনে সমস্যা হয়েছে। আবার চেষ্টা করো।");
       setSocialLoading(false);
     }
   }
@@ -92,7 +102,7 @@ export default function SignInPage() {
               htmlFor="password"
               className="mb-1 block text-sm font-medium text-gray-700"
             >
-              পাসওয়ার্ড
+              পাসওয়ার্ড
             </label>
 
             <input
@@ -101,7 +111,7 @@ export default function SignInPage() {
               required
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              placeholder="পাসওয়ার্ড লিখুন"
+              placeholder="পাসওয়ার্ড লিখুন"
               className="w-full rounded-lg border border-gray-300 px-4 py-3 outline-none focus:border-[#05893E]"
             />
           </div>
@@ -129,7 +139,7 @@ export default function SignInPage() {
             className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-2.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-60"
           >
             <FcGoogle className="text-base" />
-            <span>Google দিয়ে চালিয়ে যান</span>
+            <span>Google দিয়ে চালিয়ে যান</span>
           </button>
 
           <button
@@ -139,7 +149,7 @@ export default function SignInPage() {
             className="flex items-center justify-center gap-2 rounded-lg border border-gray-300 px-3 py-2.5 text-xs font-medium text-gray-700 transition hover:bg-gray-50 disabled:opacity-60"
           >
             <FaGithub className="text-base" />
-            <span>GitHub দিয়ে চালিয়ে যান</span>
+            <span>GitHub দিয়ে চালিয়ে যান</span>
           </button>
         </div>
 
