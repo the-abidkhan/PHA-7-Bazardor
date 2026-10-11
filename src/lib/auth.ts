@@ -7,6 +7,13 @@ export const auth = betterAuth({
         client,
     }),
 
+    // CORS এবং Multiple Domain Allow করার জন্য:
+    trustedOrigins: [
+        "https://pha-7-bazardor.vercel.app",
+        "https://n06mx-theabidkhan.vercel.app",
+        "http://localhost:3000",
+    ],
+
     emailAndPassword: {
         enabled: true,
     },
