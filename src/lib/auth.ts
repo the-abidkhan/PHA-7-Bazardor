@@ -12,6 +12,9 @@ export const auth = betterAuth({
     "https://pha-7-bazardor.vercel.app",
     "http://localhost:3000",
   ],
+  emailAndPassword: {
+    enabled: true,
+  },
   socialProviders: {
     google: {
       clientId: process.env.GOOGLE_CLIENT_ID as string,
