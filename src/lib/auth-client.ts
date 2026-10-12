@@ -4,5 +4,5 @@ export const authClient = createAuthClient({
   baseURL:
     typeof window !== "undefined"
       ? window.location.origin
-      : process.env.NEXT_PUBLIC_APP_URL || "https://pha-7-bazardor.vercel.app",
+      : process.env.NEXT_PUBLIC_BETTER_AUTH_URL || "https://pha-7-bazardor.vercel.app",
 });
